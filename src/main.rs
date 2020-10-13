@@ -55,7 +55,6 @@ impl Board {
 }
 
 fn main() {
-    let mut count = 0;
     let mut moves = [0, 1, 2, 3, 4, 5, 6, 7, 8];
     let mut seen = HashSet::new();
 
@@ -63,15 +62,16 @@ fn main() {
         let mut board = Board::default();
 
         for (i, &mut pos) in p.into_iter().enumerate() {
-            let cell = if i % 2 == 0 {
-                Cell::Cross
-            } else {
-                Cell::Naught
-            };
-            board.set(pos, cell);
+            board.set(
+                pos,
+                if i % 2 == 0 {
+                    Cell::Cross
+                } else {
+                    Cell::Naught
+                },
+            );
 
             if board.is_complete() {
-                count += 1;
                 seen.insert(p[0..i + 1].to_vec());
                 break;
             }
